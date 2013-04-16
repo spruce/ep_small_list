@@ -1,0 +1,26 @@
+{
+  "name": "ep_small_list",
+  "version": "0.0.1",
+  "description": "Adds a list of all pads on the index-page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "index",
+    "list"
+  ],
+  "author": {
+    "name": "Spruce",
+    "email": "spruce@space-ships.de",
+    "url": "Felix Fichte"
+  },
+  "license": "BSD",
+  "_id": "ep_small_list@0.0.1",
+  "readme": "ERROR: No README.md file found!",
+  "dist": {
+    "shasum": "1f7ce6db37ebb484f8f2f17b0782e78d665b5330"
+  },
+  "_from": "./plugins-available/ep_small_list/"
+}
