@@ -9,5 +9,5 @@
   "repository": {"type": "git", "url": "git://github.com/spruce/ep_small_list.git"},
   "keywords": ["index","list"],
   "author": "Spruce (Felix Fichte) <spruce@space-ships.de>",
-  "license": "BSD",
+  "license": "BSD"
 }
