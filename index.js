@@ -5,7 +5,7 @@ exports.eejsBlock_indexWrapper = function (hook_name, args, cb) {
     pads = pads.sort();
     padstring += "<ul>";
     pads.forEach(function(item){
-        padstring += '<li><a href="/p/' + item + '">' + item + '</a></li>';
+        padstring += '<li><a href="p/' + item + '">' + item + '</a></li>';
     });
     padstring += "</ul>";
     args.content += padstring
