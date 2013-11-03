@@ -3,6 +3,7 @@
     {
       "name": "small_list",
       "hooks": {
+        "expressCreateServer" : "ep_small_list/index:registerRoute",
         "eejsBlock_indexWrapper": "ep_small_list/index"
       }
     }
