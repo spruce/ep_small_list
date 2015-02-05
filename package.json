@@ -1,13 +1,19 @@
 {
   "name": "ep_small_list",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Adds a list of all pads on the index-page",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {"type": "git", "url": "git://github.com/spruce/ep_small_list.git"},
-  "keywords": ["index","list"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spruce/ep_small_list.git"
+  },
+  "keywords": [
+    "index",
+    "list"
+  ],
   "author": "Spruce (Felix Fichte) <spruce@space-ships.de>",
   "license": "BSD"
 }
