@@ -13,11 +13,8 @@ exports.registerRoute = function(hook_name, args, cb) {
             },
             function(data, callback) {
                 r = "<ul>";
-                for (p in data.padIDs) {
-                    if (data.padIDs[p].indexOf(',') >= 0) {
-                        continue;
-                    }
-                    r += '<li><a href="./p/' + data.padIDs[p] + '">' + data.padIDs[p] + '</li>';
+                for (var i = 0; i < data.padIDs.length; i++) {
+                    r += '<li><a href="./p/' + data.padIDs[i] + '">' + data.padIDs[i] + '</li>';
                 }
                 r += "</ul>";
                 res.send(r);
