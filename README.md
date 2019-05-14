@@ -5,6 +5,6 @@ A small script for [etherpad-lite](https://github.com/ether/etherpad-lite) which
 
 ## Installation
 ```console
-npm install ep_small_list --save
+npm install ep_small_list
 ```
 Restart your etherpad-lite instance to recognice new addon.
