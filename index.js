@@ -5,16 +5,29 @@ exports.eejsBlock_indexWrapper = function(hook_name, args, cb) {
 
 exports.registerRoute = function(hook_name, args, cb) {
     args.app.get("/small_list", function(req, res) {
-        padManager.listAllPads().then(function(data){
-            r = "<ul>";
-            for (var i = 0; i < data.padIDs.length; i++) {
-                r += '<li><a href="./p/' + data.padIDs[i] + '">' + data.padIDs[i] + '</li>';
-            }
-            r += "</ul>";
-            res.send(r);
+      var pads = padManager.listAllPads(function(err, data){
+        if(err){
+          return res.send("<div> Error:" + err + "</div>");
+        }
+        return res.send(createList(data));
+      });
+      if(pads){
+        pads.then(function(data){
+          res.send(createList(data));
         }).catch(function(err){
-            r = "<div> Error:" + err + "</div>";
-            res.send(r);
-        });
+            res.send("<div> Error:" + err + "</div>");
+        })
+      }
     });
 };
+
+function createList(data){
+  r = "<ul>";
+  if(data && data.padIDs){
+    for (var i = 0; i < data.padIDs.length; i++) {
+        r += '<li><a href="./p/' + data.padIDs[i] + '">' + data.padIDs[i] + '</li>';
+    }
+  }
+  r += "</ul>";
+  return r;
+}
