@@ -14,6 +14,7 @@ const orders = {
 
 var sortmode = sortmodes.CREATION;
 var order = orders.NORMAL;
+var limit = 0;
 
 if (settings.ep_small_list) {
     if (settings.ep_small_list.sortmode) {
@@ -23,6 +24,14 @@ if (settings.ep_small_list) {
     if (settings.ep_small_list.order) {
       order = settings.ep_small_list.order.trim().toLowerCase() === orders.REVERSE ? orders.REVERSE : orders.NORMAL;
       console.log("ep_small_list setting order: " + order);
+    }
+    if (settings.ep_small_list.limit) {
+      let settingsValue = parseInt(settings.ep_small_list.limit, 10);
+      if(Number.isNaN(settingsValue) || !Number.isFinite(settingsValue) ||  settingsValue < 0){
+        settingsValue = 0;
+      }
+      limit = settingsValue;
+      console.log("ep_small_list setting limit: " + limit);
     }
 }
 
@@ -75,7 +84,11 @@ async function createList(data){
   if(order === orders.REVERSE) {
     dataCache.reverse();
   }
-  
+
+  if(limit > 0 && dataCache.length > limit) {
+    dataCache.length = limit;
+  }
+
   let r = "<ul>";
   r += dataCache.map(x => x.html).join("");
   r += "</ul>";
