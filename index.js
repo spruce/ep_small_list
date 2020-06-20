@@ -6,12 +6,23 @@ const sortmodes = {
     LASTCHANGE: 'lastchange'
 }
 
+const orders = {
+    NORMAL: 'normal',
+    REVERSE: 'reverse'
+}
+
+
 var sortmode = sortmodes.CREATION;
+var order = orders.NORMAL;
 
 if (settings.ep_small_list) {
     if (settings.ep_small_list.sortmode) {
       sortmode = settings.ep_small_list.sortmode.trim().toLowerCase() === sortmodes.LASTCHANGE ? sortmodes.LASTCHANGE : sortmodes.CREATION;
       console.log("ep_small_list setting sortmode: " + sortmode);
+    }
+    if (settings.ep_small_list.order) {
+      order = settings.ep_small_list.order.trim().toLowerCase() === orders.REVERSE ? orders.REVERSE : orders.NORMAL;
+      console.log("ep_small_list setting order: " + order);
     }
 }
 
@@ -60,7 +71,11 @@ async function createList(data){
     }
     return indicator;
   });
-
+  
+  if(order === orders.REVERSE) {
+    dataCache.reverse();
+  }
+  
   let r = "<ul>";
   r += dataCache.map(x => x.html).join("");
   r += "</ul>";
