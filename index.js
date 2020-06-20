@@ -1,4 +1,5 @@
 var padManager = require('ep_etherpad-lite/node/db/PadManager');
+var db = require('ep_etherpad-lite/node/db/DB').db;
 var settings = require('ep_etherpad-lite/node/utils/Settings');
 
 const sortmodes = {
@@ -55,6 +56,7 @@ async function createList(data){
     for (var i = 0; i < data.padIDs.length; i++) {
       let padData = {};
       let padID = data.padIDs[i];
+      let title = padID;
 
       const pad = await padManager.getPad(padID);
       if (!pad) {
@@ -62,8 +64,15 @@ async function createList(data){
       }
       const lastEdit = await pad.getLastEdit();
       padData.lastChange = lastEdit;
+      
+      // support for ep_set_title_on_pad
+      db.get("title:"+padID, function(err, value){
+        if(!err && value) {
+          title = value;
+        }
+      });
 
-      padData.html = '<li><a href="./p/' + padID + '">' + padID + '</li>';
+      padData.html = '<li><a href="./p/' + padID + '">' + title + '</li>';
       padData.createIndex = i;
 
       dataCache.push(padData);
