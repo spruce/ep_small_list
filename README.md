@@ -16,9 +16,9 @@ The plugin works without configuration. But there are several configuration sett
 ### Limit number of entries
 
 ```json
-    "ep_small_list": {
-        "limit": 10
-    }
+"ep_small_list": {
+  "limit": 10
+}
 ```
 
 By default the number of entries is not limited ("limit": 0).
@@ -26,9 +26,9 @@ By default the number of entries is not limited ("limit": 0).
 ### Sort by last change
 
 ```json
-    "ep_small_list": {
-        "sortmode": "lastchange"
-    }
+"ep_small_list": {
+  "sortmode": "lastchange"
+}
 ```
 
 Default is to sort by creation ("creation").
@@ -36,9 +36,9 @@ Default is to sort by creation ("creation").
 ### Reverse order
 
 ```json
-    "ep_small_list": {
-        "order": "reverse"
-    }
+"ep_small_list": {
+  "order": "reverse"
+}
 ```
 
 Default order is "normal".
