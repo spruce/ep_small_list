@@ -31,7 +31,7 @@ By default the number of entries is not limited ("limit": 0).
 }
 ```
 
-Default is to sort by creation ("creation").
+Default is to use the order in which the API returns the pads ("default").
 
 ### Reverse order
 

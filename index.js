@@ -3,7 +3,7 @@ var db = require('ep_etherpad-lite/node/db/DB').db;
 var settings = require('ep_etherpad-lite/node/utils/Settings');
 
 const sortmodes = {
-    CREATION: 'creation',
+    DEFAULT: 'default',
     LASTCHANGE: 'lastchange'
 }
 
@@ -13,13 +13,13 @@ const orders = {
 }
 
 
-var sortmode = sortmodes.CREATION;
+var sortmode = sortmodes.DEFAULT;
 var order = orders.NORMAL;
 var limit = 0;
 
 if (settings.ep_small_list) {
     if (settings.ep_small_list.sortmode) {
-      sortmode = settings.ep_small_list.sortmode.trim().toLowerCase() === sortmodes.LASTCHANGE ? sortmodes.LASTCHANGE : sortmodes.CREATION;
+      sortmode = settings.ep_small_list.sortmode.trim().toLowerCase() === sortmodes.LASTCHANGE ? sortmodes.LASTCHANGE : sortmodes.DEFAULT;
       console.log("ep_small_list setting sortmode: " + sortmode);
     }
     if (settings.ep_small_list.order) {
@@ -81,7 +81,7 @@ async function createList(data){
 
   dataCache.sort(function (a, b) {
     let indicator = 0;
-    if(sortmode === sortmodes.CREATION) {
+    if(sortmode === sortmodes.DEFAULT) {
       indicator = a.createIndex - b.createIndex;
     } else {
        // sortmodes.LASTCHANGE
