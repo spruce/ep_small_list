@@ -46,6 +46,8 @@ exports.registerRoute = function(hook_name, args, cb) {
       createList(pads).then(function(html){
         res.send(html);
       });
+    }).catch(function(err) {
+	res.send("<div> Error:" + err + "</div>"); 
     });
   });
 };
