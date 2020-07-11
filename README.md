@@ -9,6 +9,9 @@ npm install ep_small_list
 ```
 Restart your etherpad-lite instance to recognice new addon.
 
+## Compatibility
+* Requires a minimum Node.js version of 7.10.1.
+
 ## Configuration
 
 The plugin works without configuration. But there are several configuration settings available. In your `settings.json`, add:
