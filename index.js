@@ -7,14 +7,14 @@ const sortmodes = {
     LASTCHANGE: 'lastchange'
 }
 
-const orders = {
+const sortorders = {
     NORMAL: 'normal',
     REVERSE: 'reverse'
 }
 
 
 var sortmode = sortmodes.DEFAULT;
-var order = orders.NORMAL;
+var sortorder = sortorders.NORMAL;
 var limit = 0;
 
 if (settings.ep_small_list) {
@@ -22,9 +22,9 @@ if (settings.ep_small_list) {
       sortmode = settings.ep_small_list.sortmode.trim().toLowerCase() === sortmodes.LASTCHANGE ? sortmodes.LASTCHANGE : sortmodes.DEFAULT;
       console.log("ep_small_list setting sortmode: " + sortmode);
     }
-    if (settings.ep_small_list.order) {
-      order = settings.ep_small_list.order.trim().toLowerCase() === orders.REVERSE ? orders.REVERSE : orders.NORMAL;
-      console.log("ep_small_list setting order: " + order);
+    if (settings.ep_small_list.sortorder) {
+      sortorder = settings.ep_small_list.sortorder.trim().toLowerCase() === sortorders.REVERSE ? sortorders.REVERSE : sortorders.NORMAL;
+      console.log("ep_small_list setting sortorder: " + sortorder);
     }
     if (settings.ep_small_list.limit) {
       let settingsValue = parseInt(settings.ep_small_list.limit, 10);
@@ -90,7 +90,7 @@ async function createList(data){
     return indicator;
   });
   
-  if(order === orders.REVERSE) {
+  if(sortorder === sortorders.REVERSE) {
     dataCache.reverse();
   }
 
