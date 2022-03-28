@@ -50,6 +50,7 @@ exports.registerRoute = function(hook_name, args, cb) {
 	res.send("<div> Error:" + err + "</div>"); 
     });
   });
+  return cb();
 };
 
 async function createList(data){
