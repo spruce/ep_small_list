@@ -36,8 +36,26 @@ if (settings.ep_small_list) {
     }
 }
 
-exports.eejsBlock_indexWrapper = function(hook_name, args, cb) {
-    args.content += '<div id="small_list"></div><script src="./static/js/jquery.js"></script><script>$(function () { $("#small_list").load("./small_list"); });</script>';
+exports.eejsBlock_indexWrapper = function(hook_name, args) {
+    args.content += `
+        <div id="small_list"></div>
+        <script>
+          document.addEventListener('DOMContentLoaded', async function() {
+            const container = document.getElementById('small_list');
+            if (!container) return;
+
+            try {
+              const response = await fetch('./small_list');
+              if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+              }
+              container.innerHTML = await response.text();
+            } catch (error) {
+              console.error('ep_small_list:', error);
+            }
+          });
+        </script>
+    `;
 };
 
 exports.registerRoute = function(hook_name, args, cb) {
@@ -53,6 +71,16 @@ exports.registerRoute = function(hook_name, args, cb) {
   return cb();
 };
 
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[char]);
+}
+
 async function createList(data){
   let dataCache = [];
   if(data && data.padIDs){
@@ -67,15 +95,20 @@ async function createList(data){
       }
       const lastEdit = await pad.getLastEdit();
       padData.lastChange = lastEdit;
-      
-      // support for ep_set_title_on_pad
-      db.get("title:"+padID, function(err, value){
-        if(!err && value) {
-          title = value;
-        }
-      });
 
-      padData.html = '<li><a href="./p/' + padID + '">' + title + '</li>';
+      // support custom titles from ep_set_title_on_pad.
+      try {
+        const storedTitle = await db.get("title:" + padID);
+        if (storedTitle) {
+          title = storedTitle;
+        }
+      } catch (err) {
+        console.error("ep_small_list: Could not read title for pad", padID, err);
+      }
+
+      padData.html = '<li><a href="./p/' +
+        encodeURIComponent(padID) + '">' +
+        escapeHtml(title) + '</a></li>';
       padData.createIndex = i;
 
       dataCache.push(padData);
